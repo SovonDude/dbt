@@ -1,0 +1,10 @@
+# all sources must be defined to track lineage of models
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: dfds_dbt_db
+    schema: jaffle_shop
+    tables:
+      - name: customers    # used via source()
+      - name: orders       # used as base for staging model

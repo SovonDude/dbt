@@ -1,36 +1,24 @@
--- The models can be set to view or table as per below command
+-- The models can be set to view or table as per below command 
 -- {{config(materialized='view')}}
 
 with
     customers as (
-        select * from {{ ref('stg_jaffle_shop_customers') }}
+        select * from {{ ref('stg_jaffle_shop_customers') }}   -- read from other models
     ),
 
     orders as (
-        select * from {{ ref('stg_jaffle_shop_orders') }}
+        select 
+            id as order_id, 
+            user_id as customer_id, 
+            order_date,
+            status
+        from {{ source('jaffle_shop', 'orders') }} -- read directly from source
     ),
 
     customer_orders as (
         select
             customer_id,
             min(order_date) as first_order_date,
-
-Save
-
-202122232425262728293031323317181915169101112131478456231
-
-
-
-
-
-dbt Wizard
-Commands
-Results
-Problems
-1
-Code quality
-Compiled code
-Lineage$0
             max(order_date) as most_recent_order_date,
             count(order_id) as number_of_orders
         from orders
@@ -49,5 +37,4 @@ Lineage$0
         left join customer_orders using (customer_id)
     )
 
-select *
-from final
+select * from final
