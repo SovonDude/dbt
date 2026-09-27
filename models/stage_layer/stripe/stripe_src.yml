@@ -2,13 +2,6 @@
 version: 2
 
 sources:
-  - name: jaffle_shop
-    database: dfds_dbt_db
-    schema: jaffle_shop
-    tables:
-      - name: customers 
-      - name: orders      
-  
   - name: stripe 
     database: dfds_dbt_db
     schema: stripe
