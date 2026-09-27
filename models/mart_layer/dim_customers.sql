@@ -1,27 +1,19 @@
--- The models can be set to view or table as per below command 
--- {{config(materialized='view')}}
+-- The models can be set to view or table as per the command {{config(materialized='view')}} or {{config(materialized='table')}}
+-- Best practice 
+-- Always define all the sources in CTE style for central modification
 
 with
     customers as (
         select * from {{ ref('stg_jaffle_shop_customers') }}   -- read from other models
     ),
 
-    orders as (
-        select 
-            id as order_id, 
-            user_id as customer_id, 
-            order_date,
-            status
-        from {{ source('jaffle_shop', 'orders') }} -- read directly from source
-    ),
-
     customer_orders as (
         select
-            customer_id,
+            user_id as customer_id,
             min(order_date) as first_order_date,
             max(order_date) as most_recent_order_date,
-            count(order_id) as number_of_orders
-        from orders
+            count(id) as number_of_orders
+        from {{ source('jaffle_shop', 'orders') }} -- read directly from source
         group by 1
     ),
 

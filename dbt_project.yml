@@ -1,5 +1,5 @@
-# Name your project! Project names should contain only lowercase characters and underscores. 
-name: 'my_new_project'
+# Project names should contain only lowercase characters and underscores. 
+name: 'dfds_dbt_practice'
 version: '1.0.0'
 config-version: 2
 
@@ -7,14 +7,12 @@ config-version: 2
 profile: 'default'
 
 # These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
-model-paths: ["models"]
-analysis-paths: ["analyses"]
-test-paths: ["tests"]
-seed-paths: ["seeds"]
-macro-paths: ["macros"]
-snapshot-paths: ["snapshots"]
+model-paths: ["models"] # This is the model folder for the dbt to understand
+analysis-paths: ["analyses"]  # This is the analyses folder for the dbt to understand
+test-paths: ["tests"] # This is the tests folder for the dbt to understand
+seed-paths: ["seeds"] # This is the seeds folder for the dbt to understand
+macro-paths: ["macros"] # This is the macros folder for the dbt to understand
+snapshot-paths: ["snapshots"] # This is the snapshots folder for the dbt to understand
 
 target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
@@ -23,10 +21,13 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 # In dbt, the default materialization for a model is a view. This means, when you run 
 # dbt run or dbt build, all of your models will be built as a view in your data platform. 
-# The configuration below will override this setting for models in the example folder to 
-# instead be materialized as tables. Any models you add to the root of the models folder will 
+# Any models you add to the root of the models folder will 
 # continue to be built as views. These settings can be overridden in the individual model files
 # using the `-- {{config(materialized='view')}} or -- {{config(materialized='table')}}` macro.
 models:
-  my_new_project:
-    +materialized: view
+  dfds_dbt_practice:
+    stage_layer:
+      +materialized: view
+
+    mart_layer:
+      +materialized: table
