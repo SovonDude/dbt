@@ -8,12 +8,12 @@ with
     ),
 
     customer_orders as (
-        select
-            user_id as customer_id,
+        select 
+            customer_id,
             min(order_date) as first_order_date,
             max(order_date) as most_recent_order_date,
-            count(id) as number_of_orders
-        from {{ source('jaffle_shop', 'orders') }} -- read directly from source
+            count(order_id) as number_of_orders 
+        from {{ ref('stg_jaffle_shop_orders') }}  -- read directly from source
         group by 1
     ),
 

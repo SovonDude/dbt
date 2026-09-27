@@ -6,5 +6,11 @@ sources:
     database: dfds_dbt_db
     schema: jaffle_shop
     tables:
-      - name: customers    # used via source()
-      - name: orders       # used as base for staging model
+      - name: customers 
+      - name: orders      
+  
+  - name: stripe 
+    database: dfds_dbt_db
+    schema: stripe
+    tables:
+      - name: payment
