@@ -1,0 +1,55 @@
+packages:
+  # dbt_utils - The most essential dbt package
+  # Provides core macros used in almost every dbt project:
+  # - generate_surrogate_key(): creates a hashed primary key from multiple columns
+  # - date_spine()            : generates a continuous sequence of dates (useful for date dimensions)
+  # - star()                  : selects all columns except the ones you exclude
+  # - get_column_values()     : fetches distinct values from a column dynamically
+  - package: dbt-labs/dbt_utils
+    version: "1.3.0"
+
+  # dbt_expectations - Data quality testing package
+  # Brings in Great Expectations-style tests into dbt:
+  # - expect_column_values_to_not_be_null      : stricter null checks
+  # - expect_table_row_count_to_be_between     : ensures row count is within a range
+  # - expect_column_value_lengths_to_be_between: validates string length of a column
+  # - expect_column_values_to_be_between       : validates numeric range of a column
+  #- package: calogica/dbt_expectations
+  #  version: "0.10.3"
+
+  # dbt_date - Snowflake-specific date and time utility macros
+  # Snowflake handles dates differently from other warehouses; this package smooths that out:
+  # - get_date_dimension(): builds a full date dimension table
+  # - n_days_ago()        : dynamically calculates past dates
+  # - date_part()         : extracts parts of a date (week, quarter, etc.)
+  # Pairs well with dbt_utils date_spine()
+  #- package: calogica/dbt_date
+  #  version: "0.10.0"
+
+  # codegen - Saves time by auto-generating dbt YAML boilerplate
+  # Instead of manually writing schema.yml and sources.yml, this generates them for you:
+  # - generate_source()      : auto-generates sources.yml from your raw Snowflake tables
+  # - generate_base_model()  : auto-generates a base model SQL from a source table
+  # - generate_model_yaml()  : auto-generates schema.yml for your existing models
+  # Especially useful when onboarding new sources
+  - package: dbt-labs/codegen
+    version: "0.12.1"
+
+  # audit_helper - Helps you safely refactor and migrate models
+  # When you change an existing model, this lets you compare old vs new output:
+  # - compare_relations()    : compares two tables row by row and shows differences
+  # - compare_column_values(): compares a specific column between old and new model
+  # - compare_queries()      : compares two raw SQL queries directly
+  # Essential when refactoring stage or mart models in production
+  - package: dbt-labs/audit_helper
+    version: "0.10.0"
+
+  # dbt_project_evaluator - Enforces dbt best practices across your project
+  # Scans your dbt project and flags violations of best practices such as:
+  # - Models missing documentation or tests
+  # - Direct references to raw sources in mart layer (should go through staging)
+  # - Naming convention violations (e.g. stage models not prefixed with stg_)
+  # - Circular dependencies between models
+  # Great for keeping the project clean as the team grows
+  - package: dbt-labs/dbt_project_evaluator
+    version: "0.8.0"

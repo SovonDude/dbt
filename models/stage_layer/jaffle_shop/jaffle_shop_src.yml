@@ -1,6 +1,10 @@
 # all sources must be defined to track lineage of models
 version: 2
 
+# the below command can be used to check all the sources
+#{{ codegen.generate_source(schema_name= 'jaffle_shop', database_name= 'DFDS_DBT_DB') }}
+
+
 sources:
   - name: jaffle_shop
     database: dfds_dbt_db
