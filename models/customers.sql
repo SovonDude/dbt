@@ -1,18 +1,36 @@
+-- The models can be set to view or table as per below command
+-- {{config(materialized='view')}}
+
 with
     customers as (
-        select id as customer_id, first_name, last_name
-        from dfds_dbt_db.jaffle_shop.customers
+        select * from {{ ref('stg_jaffle_shop_customers') }}
     ),
 
     orders as (
-        select id as order_id, user_id as customer_id, order_date, status
-        from dfds_dbt_db.jaffle_shop.orders
+        select * from {{ ref('stg_jaffle_shop_orders') }}
     ),
 
     customer_orders as (
         select
             customer_id,
             min(order_date) as first_order_date,
+
+Save
+
+202122232425262728293031323317181915169101112131478456231
+
+
+
+
+
+dbt Wizard
+Commands
+Results
+Problems
+1
+Code quality
+Compiled code
+Lineage$0
             max(order_date) as most_recent_order_date,
             count(order_id) as number_of_orders
         from orders
