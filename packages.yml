@@ -14,8 +14,8 @@ packages:
   # - expect_table_row_count_to_be_between     : ensures row count is within a range
   # - expect_column_value_lengths_to_be_between: validates string length of a column
   # - expect_column_values_to_be_between       : validates numeric range of a column
-  #- package: calogica/dbt_expectations
-  #  version: "0.10.3"
+  - package: calogica/dbt_expectations
+    version: "0.10.3"
 
   # dbt_date - Snowflake-specific date and time utility macros
   # Snowflake handles dates differently from other warehouses; this package smooths that out:
@@ -23,8 +23,8 @@ packages:
   # - n_days_ago()        : dynamically calculates past dates
   # - date_part()         : extracts parts of a date (week, quarter, etc.)
   # Pairs well with dbt_utils date_spine()
-  #- package: calogica/dbt_date
-  #  version: "0.10.0"
+  - package: calogica/dbt_date
+    version: "0.10.0"
 
   # codegen - Saves time by auto-generating dbt YAML boilerplate
   # Instead of manually writing schema.yml and sources.yml, this generates them for you:

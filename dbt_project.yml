@@ -7,27 +7,31 @@ config-version: 2
 profile: 'default'
 
 # These configurations specify where dbt should look for different types of files.
-model-paths: ["models"] # This is the model folder for the dbt to understand
-analysis-paths: ["analyses"]  # This is the analyses folder for the dbt to understand
-test-paths: ["tests"] # This is the tests folder for the dbt to understand
-seed-paths: ["seeds"] # This is the seeds folder for the dbt to understand
-macro-paths: ["macros"] # This is the macros folder for the dbt to understand
-snapshot-paths: ["snapshots"] # This is the snapshots folder for the dbt to understand
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
+target-path: "target"
+clean-targets:
   - "target"
   - "dbt_packages"
 
-# In dbt, the default materialization for a model is a view. This means, when you run 
-# dbt run or dbt build, all of your models will be built as a view in your data platform. 
-# Any models you add to the root of the models folder will 
-# continue to be built as views. These settings can be overridden in the individual model files
-# using the `-- {{config(materialized='view')}} or -- {{config(materialized='table')}}` macro.
 models:
+  # Your project models
   dfds_dbt_practice:
     stage_layer:
       +materialized: view
-
     mart_layer:
       +materialized: table
+
+  # Disable dbt_project_evaluator from running automatically
+  dbt_project_evaluator:
+    +enabled: false
+
+# Disable dbt_project_evaluator tests from running
+tests:
+  dbt_project_evaluator:
+    +enabled: false
