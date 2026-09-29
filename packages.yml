@@ -52,4 +52,4 @@ packages:
   # - Circular dependencies between models
   # Great for keeping the project clean as the team grows
   - package: dbt-labs/dbt_project_evaluator
-    version: "0.8.0"
+    version: "1.2.2"
